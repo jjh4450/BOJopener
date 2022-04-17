@@ -6,7 +6,7 @@ from time import time, gmtime, strftime, sleep
 from getpass import getuser
 from msvcrt import kbhit
 
-def rotation(speed:int):
+def rotation(speed:float):
     stdout.write('/')
     sleep(speed)
     stdout.flush()
