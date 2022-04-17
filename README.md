@@ -7,3 +7,4 @@ print("exit : 프로그램을 종료합니다.")
 print("color : 색상을 변경합니다.")
 print("※ 이 프로그램은 상단 타이틀 바 우클릭 -> 속성 -> 글꼴 에 있는 [NSinSum]글꼴을 지원합니다.")
 ```
+[다운로드](https://github.com/jjh4450/BOJopener/raw/main/BOJopener%20for%20git.exe)
