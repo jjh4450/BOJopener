@@ -7,46 +7,47 @@ from getpass import getuser
 from msvcrt import kbhit
 
 def rotation(speed:float):
-    stdout.write('/')
-    sleep(speed)
-    stdout.flush()
-    stdout.write('\b-')
-    sleep(speed)
-    stdout.flush()
-    stdout.write('\b\\')
-    sleep(speed)
-    stdout.flush()
-    stdout.write('\b|')
-    sleep(speed)
-    stdout.flush()
-    stdout.write('\b-')
-    sleep(speed)
-    stdout.flush()
-    stdout.write('\b')
-    sleep(speed)
-    stdout.flush()
+    load = ['/', '-', '\\', '|', '-']
+    for i in load:
+        stdout.write('\b')
+        stdout.write(i)
+        stdout.flush()
+        sleep(speed)
     return
 
-run = time()
-print("you enter")
-print("""
+def random_color() -> int:
+    if randrange(1,4) == randrange(1,4):
+        random = randrange(randrange(1,4),randrange(4,10))
+    elif randrange(randrange(1,4),randrange(4,10)) > randrange(randrange(1,4),randrange(4,10)):
+        random = randrange(randrange(randrange(1,2),randrange(2,4)),randrange(4,randrange(5,10)))
+    else:
+        random = randrange(randrange(randrange(1,3),4),randrange(4,randrange(5,10)))
+    if random == randrange(3,5):
+        random = random_color()
+    return random
+
+def title_bar() -> str:
+    print("""
               _                 _    _            ______  _____    ___ 
              | |               | |  | |           | ___ \|  _  |  |_  |
   ___  _ __  | |_   ___  _ __  | |_ | |__    ___  | |_/ /| | | |    | |
  / _ \| '_ \ | __| / _ \| '__| | __|| '_ \  / _ \ | ___ \| | | |    | |
 |  __/| | | || |_ |  __/| |    | |_ | | | ||  __/ | |_/ /\ \_/ //\__/ /
- \___||_| |_| \__| \___||_|     \__||_| |_| \___| \____/  \___/ \____/                     
-""")
-print("""
+ \___||_| |_| \__| \___||_|     \__||_| |_| \___| \____/  \___/ \____/""")
+    print("""
      ██ ██    ██ ███████ ████████     ██████   ██████      ██ ████████ 
      ██ ██    ██ ██         ██        ██   ██ ██    ██     ██    ██    
      ██ ██    ██ ███████    ██        ██   ██ ██    ██     ██    ██    
 ██   ██ ██    ██      ██    ██        ██   ██ ██    ██     ██    ██    
  █████   ██████  ███████    ██        ██████   ██████      ██    ██   """)
-system(f'color {randrange(randrange(1,4),randrange(4,8))}')
+
+run = time()
+title_bar()
+default_color = random_color()
+system(f'color {abs(default_color-random_color()) if default_color == 4 or default_color == random_color() else default_color}')
 while 1:
     check = True
-    stdout.write("엔터를 눌러 입력 시작")
+    stdout.write("엔터를 눌러 입력 시작 ")
     while(check):
         # print('w')
         check = not kbhit()
@@ -58,6 +59,8 @@ while 1:
         print("timer : 문제번호를 입력하고 지난 시간과\nboj오프너를 실행하고 지난 시간을 출력해줍니다")
         print("exit : 프로그램을 종료합니다.")
         print("color : 색상을 변경합니다.")
+        print("start: 시간을 '초기화' 하고 타이머를 시작합니다.(타이머는 문제 번호 입력시 자동 시작 됩니다.)")
+        print("title: 처음에 나오는 크레딧을 출력합니다.")
         print("※ 이 프로그램은 상단 타이틀 바 우클릭 -> 속성 -> 글꼴 에 있는 [NSinSum]글꼴을 지원합니다.")
     elif bojkr == 'time': print(datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
     elif bojkr == 'timer' :
@@ -68,6 +71,9 @@ while 1:
         R_elapsed_time = strftime("%H:%M:%S", gmtime(R_elapsed_time))
         print(f"문제를 푸신지 {elapsed_time}의 시간이 지났으며")
         print(f"이 프로그램을 실행한지 {R_elapsed_time}의 시간이 지났습니다")
+    elif bojkr == 'start':
+        start = time()
+    elif bojkr == 'title': title_bar()
     elif bojkr == 'exit': break
     elif bojkr == "color":
         print("""
@@ -87,7 +93,7 @@ while 1:
     else:
         start = time()
         system(f"start \"\" https://boj.kr/{bojkr}")
-        system(f'color {randrange(randrange(1,4),randrange(4,8))}')
+        system(f'color {random_color()}')
     
     print('='*20+datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
     if randrange(randrange(0,50), 100) == 100:print("그거 아세요? 당신은 럭키가이 입니다!")
